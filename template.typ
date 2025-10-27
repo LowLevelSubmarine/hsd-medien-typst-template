@@ -6,25 +6,30 @@
   degree_program: none,
   time_of_submission: none,
   examiners: (),
+  citation_style: "american-psychological-association",
   doc,
 ) = {
-  set text(size: 11pt, font: "arial", top-edge: 1em, hyphenate: true)
+  set text(size: 11pt, font: "arial", top-edge: 1em, hyphenate: true, lang: "de")
   set par(justify: true, linebreaks: "optimized")
   set heading()
+
+  
+  set cite(style: citation_style)
+  set bibliography(style: citation_style)
 
   show heading.where(level: 1): value => {
     set text(size: 14pt, weight: "bold")
     pagebreak(weak: true)
     pad(bottom: 9pt, value)
-   }
+  }
 
   align(right, [
     #image("./logos.png")
     #v(3.5em)
     #text(size: 24pt, weight: "bold", title)
     #if sub_title != none [
-    #v(1.5em)
-    #text(size: 16pt, weight: "bold", sub_title)
+      #v(1.5em)
+      #text(size: 16pt, weight: "bold", sub_title)
     ]
     #v(3em)
     #text(size: 16pt, weight: "bold", author)
