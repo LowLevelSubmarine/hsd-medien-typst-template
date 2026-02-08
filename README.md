@@ -8,15 +8,18 @@ im Repository Wurzelverzeichnis aus \
 `git clone https://github.com/LowLevelSubmarine/hsd-medien-typst-template` im Projekt Wurzelverzeichniss aus
 2. Erstelle eine Typst-Datei mit folgendem Inhalt
 ```
-#import "../hsd-medien-typst-template/template.typ": hsd
+#import "../hsd-medien-typst-template/template.typ": template, eidesstattliche_erklaerung
 
-#show: doc => hsd(
+#show: doc => template(
   title: [Mustertitel],
   author: "Max Mustermann",
   type_of_work: "Bachelorarbeit",
   degree_program: "B.Sc. Medieninformatik",
   time_of_submission: "Oktober 2025",
   examiners: ("Prof. Dr. Maxime Musterfrau",),
+  citation_style: "american-psychological-association",
+  preface: eidesstattliche_erklaerung(address: "Adresse", email: "email"),
+  bibliography_sources: "bib.bib",
   doc,
 )
 ```

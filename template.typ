@@ -11,7 +11,7 @@
   examiners: (),
   citation_style: "american-psychological-association",
   preface: none,
-  sources: none,
+  bibliography_sources: none,
   doc,
 ) = {
   metadata.update((author: author))
@@ -102,13 +102,13 @@
 
   counter(heading).update(0)
   set heading(numbering: "I")
-  if (sources != none) {
+  if (bibliography_sources != none) {
     heading[Literaturverzeichnis]
-    bibliography("../rag.bib", title: none)
+    bibliography(bibliography_sources, title: none)
   }
 }
 
-#let eidesstattliche_erklärung(
+#let eidesstattliche_erklaerung(
   address: none,
   email: none,
 ) = [
