@@ -1,4 +1,7 @@
-#let hsd(
+#let metadata = state("hsd_metadata", ())
+#let main_content = state("main_content", false)
+
+#let template(
   title: none,
   sub_title: none,
   author: none,
@@ -7,13 +10,24 @@
   time_of_submission: none,
   examiners: (),
   citation_style: "american-psychological-association",
+  preface: none,
+  sources: none,
   doc,
 ) = {
+  metadata.update((author: author))
+
   set text(size: 11pt, font: "arial", top-edge: 1em, hyphenate: true, lang: "de")
-  set par(justify: true, linebreaks: "optimized")
-  set heading()
+  set par(justify: true, linebreaks: "optimized", leading: 0.75em)
 
   set bibliography(style: citation_style)
+
+  show heading: it => block({
+    if (it.numbering != none) {
+      counter(heading).display()
+      h(0.75em)
+    }
+    it.body
+  })
 
   show heading.where(level: 1): value => {
     set text(size: 14pt, weight: "bold")
@@ -57,12 +71,12 @@
     ),
     header-ascent: 2em,
     header: pad(bottom: 0em, {
-      pad(bottom: -9pt, right: 0.5cm, grid(
+      pad(bottom: -9pt, grid(
         columns: (1fr, auto),
         title,
         align(right)[
           Seite
-          #context (counter(page).get().at(0))
+          #context (counter(page).display())
         ],
       ))
       line(length: 100%)
@@ -71,5 +85,46 @@
       #type_of_work, Hochschule Düsseldorf, Fachbereich Medien, #degree_program - #author, #time_of_submission
     ],
   )
+
+  // exclude header from page counter
+  counter(page).update(1)
+  set page(numbering: "i")
+
+  preface
+  outline(indent: 1em)
+
+  pagebreak()
+  counter(page).update(1)
+  set page(numbering: "1")
+  set heading(numbering: "1.1")
+
   doc
+
+  counter(heading).update(0)
+  set heading(numbering: "I")
+  if (sources != none) {
+    heading[Literaturverzeichnis]
+    bibliography("../rag.bib", title: none)
+  }
 }
+
+#let eidesstattliche_erklärung(
+  address: none,
+  email: none,
+) = [
+  = Eidesstattliche Erklärung
+  Hiermit versichere ich an Eides statt, dass ich diese Arbeit eigenständig verfasst und keine anderen als die angegebenen und bei Zitaten kenntlich gemachten Quellen und Hilfsmittel benutzt habe.
+
+  #v(9em)
+  #line(length: 66%)
+  Datum, Unterschrift
+
+  #v(11em)
+  *Kontaktinformationen*
+  #v(0.5em)
+  #context metadata.get().author
+  #linebreak()
+  #if (address == none) ["address" missing!] else { address }
+  #linebreak()
+  #if (email == none) ["email" missing!] else { email }
+]
