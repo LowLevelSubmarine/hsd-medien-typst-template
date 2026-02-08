@@ -17,7 +17,7 @@
   metadata.update((author: author))
 
   set text(size: 11pt, font: "arial", top-edge: 1em, hyphenate: true, lang: "de")
-  set par(justify: true, linebreaks: "optimized", leading: 0.75em)
+  set par(justify: true, linebreaks: "optimized", leading: 0.75em, spacing: 1.5em)
 
   set bibliography(style: citation_style)
 
@@ -121,7 +121,7 @@
 
   #v(11em)
   *Kontaktinformationen*
-  #v(0.5em)
+  #parbreak()
   #context metadata.get().author
   #linebreak()
   #if (address == none) ["address" missing!] else { address }
