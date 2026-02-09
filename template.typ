@@ -21,6 +21,8 @@
 
   set bibliography(style: citation_style)
 
+  set footnote.entry(separator: line(length: 5cm, stroke: 1pt), indent: 0pt)
+
   show heading: it => block({
     if (it.numbering != none) {
       counter(heading).display()
