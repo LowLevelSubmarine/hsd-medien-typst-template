@@ -130,3 +130,11 @@
   #linebreak()
   #if (email == none) ["email" missing!] else { email }
 ]
+
+#let gender_hinweis(custom_text: none) = {
+  [= Genderhinweis]
+
+  if (custom_text != none) { custom_text } else [
+    In der vorliegenden Arbeit wird darauf verzichtet, bei Personenbezeichnungen sowohl die weibliche als auch die männliche und diverse Form zu nennen. Das generische Maskulinum adressiert alle Leserinnen und Leser und gilt in allen Fällen, in denen dies nicht explizit ausgeschlossen wird, für alle Geschlechter.
+  ]
+}
